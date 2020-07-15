@@ -1,10 +1,10 @@
 package com.alejandro8a.androidTemplate.di
 
+import com.alejandro8a.androidTemplate.BuildConfig
 import com.alejandro8a.androidTemplate.network.ApiService
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.android.BuildConfig
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

@@ -5,7 +5,7 @@ import com.alejandro8a.androidTemplate.domain.repository.CharacterRepository
 import com.alejandro8a.androidTemplate.domain.usecase.base.UseCase
 import com.alejandro8a.androidTemplate.network.ApiErrorHandle
 
-class GetCharacterUseCase constructor(
+class CharacterUseCase constructor(
     private val characterRepository: CharacterRepository,
     apiErrorHandle: ApiErrorHandle?
 ): UseCase<CharacterData, Any?>(apiErrorHandle){

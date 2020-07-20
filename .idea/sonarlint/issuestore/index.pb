@@ -8,8 +8,6 @@
 gradlew,5/b/5bbfa66edb4db3c7c33c5181f43510990d3307f9
 <
 build.gradle,f/0/f07866736216be0ee2aba49e392191aeae700a35
-q
-Aapp/src/main/java/com/alejandro8a/androidTemplate/MainActivity.kt,f/f/ff67431eba34654bd4c4c1db95c33efab542c78d
 w
 Gapp/src/main/java/com/alejandro8a/androidTemplate/network/ApiService.kt,8/d/8d5b3babdf4c46009675f4cdabf441a7c69a6f37
 @
@@ -28,3 +26,7 @@ x
 Happ/src/main/java/com/alejandro8a/androidTemplate/di/RepositoryModule.kt,0/7/078e02c191ed671eea4acda01276648357676356
 r
 Bapp/src/main/java/com/alejandro8a/androidTemplate/MyApplication.kt,b/3/b3bc36a38b4d8c1dc68bcfcd90fa312409655c79
+
+Qapp/src/main/java/com/alejandro8a/androidTemplate/extensions/AndroidExtensions.kt,e/7/e7ea1591c08d15eee41367c179db4f1e5c32e244
+z
+Japp/src/main/java/com/alejandro8a/androidTemplate/network/NetworkResult.kt,9/1/91990dd33de6e9a512fe93a43f361203a628d923

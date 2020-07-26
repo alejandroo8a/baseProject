@@ -7,10 +7,10 @@ import com.alejandro8a.androidTemplate.network.ApiErrorHandle
 
 class CharacterUseCase constructor(
     private val characterRepository: CharacterRepository,
-    apiErrorHandle: ApiErrorHandle?
-): UseCase<CharacterData, Any?>(apiErrorHandle){
+    apiErrorHandle: ApiErrorHandle
+): UseCase<List<CharacterData>, Any?>(apiErrorHandle){
 
-    override suspend fun run(params: Any?): CharacterData {
+    override suspend fun run(params: Any?): List<CharacterData> {
         return characterRepository.getCharacter()
     }
 

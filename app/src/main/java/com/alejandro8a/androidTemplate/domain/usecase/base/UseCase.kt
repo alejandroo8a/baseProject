@@ -6,7 +6,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-abstract class UseCase<Type, in Params>(private val apiErrorHandle: ApiErrorHandle?) where Type : Any {
+abstract class UseCase<Type, in Params>(private val apiErrorHandle: ApiErrorHandle) where Type : Any {
 
     abstract suspend fun run(params: Params? = null): Type
 
@@ -23,7 +23,7 @@ abstract class UseCase<Type, in Params>(private val apiErrorHandle: ApiErrorHand
                 try {
                     onResult.onSuccess(it)
                 } catch (e: HttpException) {
-                    onResult.onError(apiErrorHandle?.traceErrorException(e))
+                    onResult.onError(apiErrorHandle.traceErrorException(e))
                 }
             }
         }

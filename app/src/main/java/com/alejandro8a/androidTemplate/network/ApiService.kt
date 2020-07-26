@@ -6,6 +6,6 @@ import retrofit2.http.GET
 interface ApiService {
 
     @GET("api/v1/characters/random")
-    suspend fun getCharacter(): CharacterData
+    suspend fun getCharacter(): List<CharacterData>
 
 }

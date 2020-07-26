@@ -1,12 +1,17 @@
-package com.alejandro8a.androidTemplate.presentation
+package com.alejandro8a.androidTemplate.presentation.profile
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.alejandro8a.androidTemplate.R
+import com.alejandro8a.androidTemplate.extensions.showFragment
 
 class ProfileActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        showFragment(ProfileFragment(), R.id.rootView)
     }
+
 }

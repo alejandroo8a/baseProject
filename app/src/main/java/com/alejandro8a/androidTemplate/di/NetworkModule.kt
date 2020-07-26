@@ -1,6 +1,7 @@
 package com.alejandro8a.androidTemplate.di
 
 import com.alejandro8a.androidTemplate.BuildConfig
+import com.alejandro8a.androidTemplate.network.ApiErrorHandle
 import com.alejandro8a.androidTemplate.network.ApiService
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
@@ -47,4 +48,8 @@ fun createMoshi(): Moshi {
 
 fun createService(retrofit: Retrofit): ApiService {
     return retrofit.create(ApiService::class.java)
+}
+
+fun createApiErrorHandle(): ApiErrorHandle {
+    return ApiErrorHandle()
 }

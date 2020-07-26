@@ -6,7 +6,7 @@ import com.alejandro8a.androidTemplate.network.ApiService
 
 class CharacterRepositoryImpl(private val apiService: ApiService): CharacterRepository {
 
-    override suspend fun getCharacter(): CharacterData {
+    override suspend fun getCharacter(): List<CharacterData> {
         return apiService.getCharacter()
     }
 

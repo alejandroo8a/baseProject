@@ -1,4 +1,4 @@
-package com.alejandro8a.androidTemplate.presentation
+package com.alejandro8a.androidTemplate.presentation.profile
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -28,10 +28,10 @@ class ProfileViewModel constructor(
 
     fun getCharacter() {
         _showProgressBar.value = true
-        characterUseCase.invoke(scope, null, object : UseCaseResponse<CharacterData> {
-            override fun onSuccess(result: CharacterData) {
+        characterUseCase.invoke(scope, null, object : UseCaseResponse<List<CharacterData>> {
+            override fun onSuccess(result: List<CharacterData>) {
                 _showProgressBar.value = false
-                _uiCharacter.postValue(characterMapper.toUiProfile(result))
+                _uiCharacter.postValue(characterMapper.toUiProfile(result[0]))
             }
 
             override fun onError(errorModel: ErrorModel) {

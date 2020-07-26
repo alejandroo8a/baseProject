@@ -4,5 +4,5 @@ import com.alejandro8a.androidTemplate.data.CharacterData
 
 interface CharacterRepository {
 
-    suspend fun getCharacter(): CharacterData
+    suspend fun getCharacter(): List<CharacterData>
 }

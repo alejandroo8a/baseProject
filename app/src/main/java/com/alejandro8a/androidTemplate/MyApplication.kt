@@ -2,10 +2,7 @@ package com.alejandro8a.androidTemplate
 
 import android.app.Application
 import androidx.multidex.MultiDex
-import com.alejandro8a.androidTemplate.di.DatabaseModule
-import com.alejandro8a.androidTemplate.di.NetworkModule
-import com.alejandro8a.androidTemplate.di.RepositoryModule
-import com.alejandro8a.androidTemplate.di.ViewModelModule
+import com.alejandro8a.androidTemplate.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -22,7 +19,15 @@ class MyApplication : Application(){
         startKoin {
             androidLogger()
             androidContext(this@MyApplication)
-            modules(listOf(DatabaseModule, NetworkModule, RepositoryModule, ViewModelModule))
+            modules(
+                listOf(
+                    DatabaseModule,
+                    NetworkModule,
+                    RepositoryModule,
+                    UseCaseModule,
+                    ViewModelModule
+                )
+            )
         }
     }
 }

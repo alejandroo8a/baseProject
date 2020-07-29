@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import coil.api.load
+import coil.transform.CircleCropTransformation
 import com.alejandro8a.androidTemplate.R
 import com.alejandro8a.androidTemplate.databinding.FragmentProfileBinding
 import com.alejandro8a.androidTemplate.extensions.snackbar
@@ -46,6 +48,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private fun handleUiCharacterResult(character: UiProfile) {
         binding.nameText.text = character.name
+        binding.weaponText.text = character.weapon
+        binding.profileImage.load(character.photoUrl)
     }
 
     private fun handleErrorMessageResult(error: String) {

@@ -1,11 +1,12 @@
 package com.alejandro8a.androidTemplate.presentation.profile
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.alejandro8a.androidTemplate.R
 import com.alejandro8a.androidTemplate.databinding.FragmentProfileBinding
+import com.alejandro8a.androidTemplate.extensions.snackbar
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
@@ -18,13 +19,21 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         super.onViewCreated(view, savedInstanceState)
 
         _binding = FragmentProfileBinding.bind(view)
+        addListeners()
         addObservers()
         viewModel.getCharacter()
+    }
+
+    private fun addListeners() {
+        binding.buttonCharacter.setOnClickListener {
+            viewModel.getCharacter()
+        }
     }
 
     private fun addObservers() {
         viewModel.showProgressBar.observe(this, Observer(::handleShowProgressBar))
         viewModel.uiCharacter.observe(this, Observer(::handleUiCharacterResult))
+        viewModel.errorMessage.observe(this, Observer(::handleErrorMessageResult))
     }
 
     private fun handleShowProgressBar(status: Boolean) {
@@ -37,6 +46,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private fun handleUiCharacterResult(character: UiProfile) {
         binding.nameText.text = character.name
+    }
+
+    private fun handleErrorMessageResult(error: String) {
+        snackbar(error, binding.root)
     }
 
     override fun onDestroyView() {

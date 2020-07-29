@@ -12,7 +12,6 @@ class CharacterMapper {
             characterData.photoUrl,
             characterData.name,
             characterData.gender,
-            characterData.love
+            characterData.love ?: ""
         )
-
 }

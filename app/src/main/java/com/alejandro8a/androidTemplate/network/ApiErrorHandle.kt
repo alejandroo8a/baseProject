@@ -21,7 +21,7 @@ class ApiErrorHandle {
                 if (throwable.code() == 401) {
                     ErrorModel(throwable.message(), throwable.code(), ErrorModel.ErrorStatus.UNAUTHORIZED)
                 } else {
-                    getHttpError(throwable.response()?.errorBody())
+                    getHttpError(throwable.response()?.errorBody(), throwable.code())
                 }
             }
 
@@ -45,10 +45,10 @@ class ApiErrorHandle {
      * @param body retrofit response body
      * @return returns an instance of [ErrorModel] with parsed data or NOT_DEFINED status
      */
-    private fun getHttpError(body: ResponseBody?): ErrorModel {
+    private fun getHttpError(body: ResponseBody?, code: Int): ErrorModel {
         return try {
             // use response body to get error detail
-            ErrorModel(body.toString(), 400, ErrorModel.ErrorStatus.BAD_RESPONSE)
+            ErrorModel(body.toString(), code, ErrorModel.ErrorStatus.BAD_RESPONSE)
         } catch (e: Throwable) {
             e.printStackTrace()
             ErrorModel(message = e.message, errorStatus = ErrorModel.ErrorStatus.NOT_DEFINED)

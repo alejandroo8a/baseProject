@@ -7,5 +7,5 @@ data class CharacterData (
     val photoUrl: String,
     val name: String,
     val gender: String,
-    val love: String
+    val love: String?
 )

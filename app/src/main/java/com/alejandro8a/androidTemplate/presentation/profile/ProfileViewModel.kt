@@ -41,4 +41,8 @@ class ProfileViewModel constructor(
             }
         })
     }
+
+    fun saveCharacter() {
+
+    }
 }

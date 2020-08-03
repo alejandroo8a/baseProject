@@ -27,8 +27,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     private fun addListeners() {
-        binding.buttonCharacter.setOnClickListener {
+        binding.characterButton.setOnClickListener {
             viewModel.getCharacter()
+        }
+        binding.saveButton.setOnClickListener {
+            viewModel.saveCharacter()
         }
     }
 

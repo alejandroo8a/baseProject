@@ -1,19 +1,19 @@
 package com.alejandro8a.androidTemplate.data.repository
 
-import com.alejandro8a.androidTemplate.data.CharacterData
+import com.alejandro8a.androidTemplate.network.model.CharacterResponse
 import com.alejandro8a.androidTemplate.presentation.profile.UiProfile
 
 class CharacterMapper {
 
-    fun toUiProfile(characterData: CharacterData) =
+    fun toUiProfile(characterResponse: CharacterResponse) =
         UiProfile(
-            characterData.allies,
-            characterData.enemies,
-            characterData.photoUrl ?: DEFAULT_IMAGE,
-            characterData.name,
-            characterData.gender ?: EMPTY_STRING,
-            characterData.love ?: NO_LOVE,
-            characterData.weapon ?: DEFAULT_WEAPON
+            characterResponse.allies,
+            characterResponse.enemies,
+            characterResponse.photoUrl ?: DEFAULT_IMAGE,
+            characterResponse.name,
+            characterResponse.gender ?: EMPTY_STRING,
+            characterResponse.love ?: NO_LOVE,
+            characterResponse.weapon ?: DEFAULT_WEAPON
         )
 
     companion object {

@@ -1,11 +1,11 @@
 package com.alejandro8a.androidTemplate.network
 
-import com.alejandro8a.androidTemplate.data.CharacterData
+import com.alejandro8a.androidTemplate.network.model.CharacterResponse
 import retrofit2.http.GET
 
 interface ApiService {
 
     @GET("api/v1/characters/random")
-    suspend fun getCharacter(): List<CharacterData>
+    suspend fun getCharacter(): List<CharacterResponse>
 
 }

@@ -4,14 +4,16 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.alejandro8a.androidTemplate.network.model.CharacterResponse
 import com.alejandro8a.androidTemplate.data.repository.CharacterMapper
-import com.alejandro8a.androidTemplate.domain.usecase.CharacterUseCase
+import com.alejandro8a.androidTemplate.domain.usecase.character.GetCharacterUseCase
 import com.alejandro8a.androidTemplate.domain.usecase.base.UseCaseResponse
+import com.alejandro8a.androidTemplate.domain.usecase.character.SaveCharacterUseCase
 import com.alejandro8a.androidTemplate.extensions.asLiveData
 import com.alejandro8a.androidTemplate.network.ErrorModel
 import com.alejandro8a.androidTemplate.presentation.base.BaseViewModel
 
 class ProfileViewModel constructor(
-    private val characterUseCase: CharacterUseCase,
+    private val getCharacterUseCase: GetCharacterUseCase,
+    private val saveCharacterUseCase: SaveCharacterUseCase,
     private val characterMapper: CharacterMapper
 ) : BaseViewModel() {
 
@@ -28,7 +30,7 @@ class ProfileViewModel constructor(
 
     fun getCharacter() {
         _showProgressBar.value = true
-        characterUseCase.invoke(scope, null, object : UseCaseResponse<List<CharacterResponse>> {
+        getCharacterUseCase.invoke(scope, null, object : UseCaseResponse<List<CharacterResponse>> {
             override fun onSuccess(result: List<CharacterResponse>) {
                 _showProgressBar.value = false
                 _uiCharacter.postValue(characterMapper.toUiProfile(result[0]))
@@ -42,7 +44,15 @@ class ProfileViewModel constructor(
         })
     }
 
-    fun saveCharacter() {
+    fun saveCharacter(characterResponse: CharacterResponse) {
+        saveCharacterUseCase.invoke(scope, characterResponse.mapToRoomEntity(), object : UseCaseResponse<Unit> {
+            override fun onSuccess(result: Unit) {
+                TODO("Not yet implemented")
+            }
 
+            override fun onError(errorModel: ErrorModel) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 }

@@ -11,6 +11,7 @@ import java.net.SocketTimeoutException
  *
  * */
 class ApiErrorHandle {
+
     fun traceErrorException(throwable: Throwable?): ErrorModel {
         val errorModel: ErrorModel? = when (throwable) {
 

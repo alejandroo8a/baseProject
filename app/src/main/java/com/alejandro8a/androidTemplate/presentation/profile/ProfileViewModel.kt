@@ -2,6 +2,7 @@ package com.alejandro8a.androidTemplate.presentation.profile
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.alejandro8a.androidTemplate.data.repository.CharacterCache
 import com.alejandro8a.androidTemplate.network.model.CharacterResponse
 import com.alejandro8a.androidTemplate.data.repository.CharacterMapper
 import com.alejandro8a.androidTemplate.domain.usecase.character.GetCharacterUseCase
@@ -14,7 +15,8 @@ import com.alejandro8a.androidTemplate.presentation.base.BaseViewModel
 class ProfileViewModel constructor(
     private val getCharacterUseCase: GetCharacterUseCase,
     private val saveCharacterUseCase: SaveCharacterUseCase,
-    private val characterMapper: CharacterMapper
+    private val characterMapper: CharacterMapper,
+    private val characterCache: CharacterCache
 ) : BaseViewModel() {
 
     private val TAG = ProfileViewModel::class.java.name
@@ -33,6 +35,7 @@ class ProfileViewModel constructor(
         getCharacterUseCase.invoke(scope, null, object : UseCaseResponse<List<CharacterResponse>> {
             override fun onSuccess(result: List<CharacterResponse>) {
                 _showProgressBar.value = false
+                characterCache.characterResponse = result[0]
                 _uiCharacter.postValue(characterMapper.toUiProfile(result[0]))
             }
 
@@ -44,14 +47,14 @@ class ProfileViewModel constructor(
         })
     }
 
-    fun saveCharacter(characterResponse: CharacterResponse) {
-        saveCharacterUseCase.invoke(scope, characterResponse.mapToRoomEntity(), object : UseCaseResponse<Unit> {
+    fun saveCharacter() {
+        saveCharacterUseCase.invoke(scope, characterCache.characterResponse.mapToRoomEntity(), object : UseCaseResponse<Unit> {
             override fun onSuccess(result: Unit) {
-                TODO("Not yet implemented")
+                //No-opa
             }
 
             override fun onError(errorModel: ErrorModel) {
-                TODO("Not yet implemented")
+                _errorMessage.value = errorModel.message
             }
         })
     }

@@ -9,7 +9,7 @@ import com.alejandro8a.androidTemplate.network.DomainMapper
 
 @Entity(tableName = CHARACTER_TABLE_NAME)
 data class CharacterEntity (
-    @PrimaryKey val idCharacter: Int = 0,
+    @PrimaryKey val idCharacter: String,
     val photoUrl: String? = EMPTY_FIELD,
     val name: String = EMPTY_FIELD,
     val gender: String? = EMPTY_FIELD,

@@ -6,6 +6,19 @@ import org.koin.android.viewmodel.dsl.viewModel
 
 val ViewModelModule = module {
 
-    viewModel { ProfileViewModel(createCharacterUseCase(createCharacterRepository(get()), createApiErrorHandle()), createCharacterMapper()) }
+    viewModel {
+        ProfileViewModel(
+            createGetCharacterUseCase(
+                createCharacterRepository(get(), get()),
+                createApiErrorHandle()
+            ),
+            createSaveCharacterUseCase(
+                createCharacterRepository(get(), get()),
+                createApiErrorHandle()
+            ),
+            createCharacterMapper(),
+            createCharacterCache()
+        )
+    }
 
 }

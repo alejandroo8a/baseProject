@@ -16,6 +16,10 @@ val ViewModelModule = module {
                 createCharacterRepository(get(), get()),
                 createApiErrorHandle()
             ),
+            createGetAllCharactersUseCase(
+                createCharacterRepository(get(), get()),
+                createApiErrorHandle()
+            ),
             createCharacterMapper(),
             createCharacterCache()
         )

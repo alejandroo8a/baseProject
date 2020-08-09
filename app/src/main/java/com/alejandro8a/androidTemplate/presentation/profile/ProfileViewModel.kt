@@ -1,6 +1,7 @@
 package com.alejandro8a.androidTemplate.presentation.profile
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.alejandro8a.androidTemplate.data.repository.CharacterCache
 import com.alejandro8a.androidTemplate.network.model.CharacterResponse

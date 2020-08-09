@@ -1,6 +1,7 @@
 package com.alejandro8a.androidTemplate.di
 
 import com.alejandro8a.androidTemplate.domain.repository.CharacterRepository
+import com.alejandro8a.androidTemplate.domain.usecase.character.GetAllCharactersUseCase
 import com.alejandro8a.androidTemplate.domain.usecase.character.GetCharacterUseCase
 import com.alejandro8a.androidTemplate.domain.usecase.character.SaveCharacterUseCase
 import com.alejandro8a.androidTemplate.network.ApiErrorHandle
@@ -27,6 +28,16 @@ fun createSaveCharacterUseCase(
     apiErrorHandle: ApiErrorHandle
 ): SaveCharacterUseCase {
     return SaveCharacterUseCase(
+        characterRepository,
+        apiErrorHandle
+    )
+}
+
+fun createGetAllCharactersUseCase(
+    characterRepository: CharacterRepository,
+    apiErrorHandle: ApiErrorHandle
+): GetAllCharactersUseCase {
+    return GetAllCharactersUseCase(
         characterRepository,
         apiErrorHandle
     )

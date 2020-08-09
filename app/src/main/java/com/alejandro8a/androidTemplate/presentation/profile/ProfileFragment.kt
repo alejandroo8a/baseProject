@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import coil.api.load
 import coil.transform.CircleCropTransformation
 import com.alejandro8a.androidTemplate.R
@@ -17,13 +18,23 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private val binding get() = _binding!!
     private val viewModel: ProfileViewModel by viewModel()
 
+    private val adapter = ProfileAdapter()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         _binding = FragmentProfileBinding.bind(view)
+        setupView()
         addListeners()
         addObservers()
         viewModel.getCharacter()
+        viewModel.getAllCharacters()
+    }
+
+    private fun setupView() {
+        val linearLayoutManager = LinearLayoutManager(context)
+        binding.characterRecyclerView.layoutManager = linearLayoutManager
+        binding.characterRecyclerView.adapter = adapter
     }
 
     private fun addListeners() {
@@ -32,6 +43,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
         binding.saveButton.setOnClickListener {
             viewModel.saveCharacter()
+            viewModel.getAllCharacters()
         }
     }
 
@@ -57,7 +69,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     private fun handleUiAllCharactersResult(characterList: List<UiProfile>) {
-        //No-op
+        adapter.setupData(characterList)
     }
 
     private fun handleErrorMessageResult(error: String) {

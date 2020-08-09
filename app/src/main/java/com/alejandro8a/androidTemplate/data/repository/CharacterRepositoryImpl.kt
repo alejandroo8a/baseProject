@@ -19,4 +19,8 @@ class CharacterRepositoryImpl(
         characterDao.saveCharacter(characterEntity)
     }
 
+    override suspend fun getAllCharacters(): List<CharacterEntity> {
+        return characterDao.getAllCharacters()
+    }
+
 }

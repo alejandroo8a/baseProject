@@ -8,4 +8,6 @@ interface CharacterRepository {
     suspend fun getCharacter(): List<CharacterResponse>
 
     suspend fun saveCharacter(characterEntity: CharacterEntity)
+
+    suspend fun getAllCharacters(): List<CharacterEntity>
 }

@@ -1,9 +1,18 @@
 package com.alejandro8a.androidTemplate.data.repository
 
+import com.alejandro8a.androidTemplate.database.model.CharacterEntity
 import com.alejandro8a.androidTemplate.network.model.CharacterResponse
 import com.alejandro8a.androidTemplate.presentation.profile.UiProfile
 
 class CharacterMapper {
+
+    fun toUiProfileList(characterEntityList: List<CharacterEntity>): List<UiProfile> {
+        val uiProfileList = arrayListOf<UiProfile>()
+        for (character in characterEntityList) {
+            uiProfileList.add(toUiProfile(character.mapToDomainModel()))
+        }
+        return uiProfileList
+    }
 
     fun toUiProfile(characterResponse: CharacterResponse) =
         UiProfile(

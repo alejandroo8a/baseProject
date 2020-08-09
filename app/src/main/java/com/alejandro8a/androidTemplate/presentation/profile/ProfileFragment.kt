@@ -38,6 +38,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private fun addObservers() {
         viewModel.showProgressBar.observe(this, Observer(::handleShowProgressBar))
         viewModel.uiCharacter.observe(this, Observer(::handleUiCharacterResult))
+        viewModel.uiAllCharacters.observe(this, Observer(::handleUiAllCharactersResult))
         viewModel.errorMessage.observe(this, Observer(::handleErrorMessageResult))
     }
 
@@ -53,6 +54,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.nameText.text = character.name
         binding.weaponText.text = character.weapon
         binding.profileImage.load(character.photoUrl)
+    }
+
+    private fun handleUiAllCharactersResult(characterList: List<UiProfile>) {
+        //No-op
     }
 
     private fun handleErrorMessageResult(error: String) {

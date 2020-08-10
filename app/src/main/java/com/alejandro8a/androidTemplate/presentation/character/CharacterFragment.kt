@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.api.load
 import com.alejandro8a.androidTemplate.R
 import com.alejandro8a.androidTemplate.databinding.FragmentProfileBinding
 import com.alejandro8a.androidTemplate.extensions.snackbar

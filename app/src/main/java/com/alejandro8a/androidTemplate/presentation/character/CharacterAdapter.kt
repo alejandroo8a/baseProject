@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.api.load
 import com.alejandro8a.androidTemplate.R
 import com.alejandro8a.androidTemplate.databinding.ItemCharacterBinding
 

@@ -2,12 +2,12 @@ package com.alejandro8a.androidTemplate.data.repository
 
 import com.alejandro8a.androidTemplate.database.model.CharacterEntity
 import com.alejandro8a.androidTemplate.network.model.CharacterResponse
-import com.alejandro8a.androidTemplate.presentation.profile.UiProfile
+import com.alejandro8a.androidTemplate.presentation.character.CharacterProfile
 
 class CharacterMapper {
 
-    fun toUiProfileList(characterEntityList: List<CharacterEntity>): List<UiProfile> {
-        val uiProfileList = arrayListOf<UiProfile>()
+    fun toUiProfileList(characterEntityList: List<CharacterEntity>): List<CharacterProfile> {
+        val uiProfileList = arrayListOf<CharacterProfile>()
         for (character in characterEntityList) {
             uiProfileList.add(toUiProfile(character.mapToDomainModel()))
         }
@@ -15,7 +15,7 @@ class CharacterMapper {
     }
 
     fun toUiProfile(characterResponse: CharacterResponse) =
-        UiProfile(
+        CharacterProfile(
             characterResponse.allies,
             characterResponse.enemies,
             characterResponse.photoUrl ?: DEFAULT_IMAGE,

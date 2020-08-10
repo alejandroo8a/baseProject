@@ -1,6 +1,6 @@
-package com.alejandro8a.androidTemplate.presentation.profile
+package com.alejandro8a.androidTemplate.presentation.character
 
-data class UiProfile (
+data class CharacterProfile (
     val allies: List<String>,
     val enemies: List<String>,
     val photoUrl: String,

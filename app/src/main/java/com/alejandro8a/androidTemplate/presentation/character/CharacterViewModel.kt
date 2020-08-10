@@ -1,7 +1,6 @@
-package com.alejandro8a.androidTemplate.presentation.profile
+package com.alejandro8a.androidTemplate.presentation.character
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.alejandro8a.androidTemplate.data.repository.CharacterCache
 import com.alejandro8a.androidTemplate.network.model.CharacterResponse
@@ -15,7 +14,7 @@ import com.alejandro8a.androidTemplate.extensions.asLiveData
 import com.alejandro8a.androidTemplate.network.ErrorModel
 import com.alejandro8a.androidTemplate.presentation.base.BaseViewModel
 
-class ProfileViewModel constructor(
+class CharacterViewModel constructor(
     private val getCharacterUseCase: GetCharacterUseCase,
     private val saveCharacterUseCase: SaveCharacterUseCase,
     private val getAllCharactersUseCase: GetAllCharactersUseCase,
@@ -23,12 +22,12 @@ class ProfileViewModel constructor(
     private val characterCache: CharacterCache
 ) : BaseViewModel() {
 
-    private val TAG = ProfileViewModel::class.java.name
+    private val TAG = CharacterViewModel::class.java.name
 
-    private val _uiCharacter = MutableLiveData<UiProfile>()
+    private val _uiCharacter = MutableLiveData<CharacterProfile>()
     val uiCharacter = _uiCharacter.asLiveData()
 
-    private val _uiAllCharacters = MutableLiveData<List<UiProfile>>()
+    private val _uiAllCharacters = MutableLiveData<List<CharacterProfile>>()
     val uiAllCharacters = _uiAllCharacters.asLiveData()
 
     private val _showProgressBar = MutableLiveData<Boolean>()

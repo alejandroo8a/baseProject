@@ -1,16 +1,15 @@
-package com.alejandro8a.androidTemplate.presentation.profile
+package com.alejandro8a.androidTemplate.presentation.character
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.api.load
 import com.alejandro8a.androidTemplate.R
 import com.alejandro8a.androidTemplate.databinding.ItemCharacterBinding
 
-class ProfileAdapter() : RecyclerView.Adapter<ProfileAdapter.ViewHolder>() {
+class CharacterAdapter() : RecyclerView.Adapter<CharacterAdapter.ViewHolder>() {
 
-    private val profileList = arrayListOf<UiProfile>()
+    private val profileList = arrayListOf<CharacterProfile>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_character, parent, false)
@@ -23,7 +22,7 @@ class ProfileAdapter() : RecyclerView.Adapter<ProfileAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = profileList.size
 
-    fun setupData(newProfileData: List<UiProfile>) {
+    fun setupData(newProfileData: List<CharacterProfile>) {
         profileList.clear()
         profileList.addAll(newProfileData)
         notifyDataSetChanged()
@@ -33,7 +32,7 @@ class ProfileAdapter() : RecyclerView.Adapter<ProfileAdapter.ViewHolder>() {
 
         val binding = ItemCharacterBinding.bind(view)
 
-        fun bind(profileData: UiProfile) = with(itemView) {
+        fun bind(profileData: CharacterProfile) = with(itemView) {
             binding.nameText.text = profileData.name
             binding.weaponText.text = profileData.weapon
             binding.characterImage.load(profileData.photoUrl)

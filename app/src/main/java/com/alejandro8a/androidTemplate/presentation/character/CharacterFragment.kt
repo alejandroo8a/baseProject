@@ -1,24 +1,22 @@
-package com.alejandro8a.androidTemplate.presentation.profile
+package com.alejandro8a.androidTemplate.presentation.character
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import coil.api.load
-import coil.transform.CircleCropTransformation
 import com.alejandro8a.androidTemplate.R
 import com.alejandro8a.androidTemplate.databinding.FragmentProfileBinding
 import com.alejandro8a.androidTemplate.extensions.snackbar
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class ProfileFragment : Fragment(R.layout.fragment_profile) {
+class CharacterFragment : Fragment(R.layout.fragment_profile) {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ProfileViewModel by viewModel()
+    private val viewModel: CharacterViewModel by viewModel()
 
-    private val adapter = ProfileAdapter()
+    private val adapter = CharacterAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,13 +60,13 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
     }
 
-    private fun handleUiCharacterResult(character: UiProfile) {
+    private fun handleUiCharacterResult(character: CharacterProfile) {
         binding.nameText.text = character.name
         binding.weaponText.text = character.weapon
         binding.profileImage.load(character.photoUrl)
     }
 
-    private fun handleUiAllCharactersResult(characterList: List<UiProfile>) {
+    private fun handleUiAllCharactersResult(characterList: List<CharacterProfile>) {
         adapter.setupData(characterList)
     }
 

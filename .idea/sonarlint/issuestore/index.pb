@@ -66,5 +66,13 @@ y
 Iapp/src/main/java/com/alejandro8a/androidTemplate/database/DbConstants.kt,0/6/06d6eb15e4082c84417fc5fe3b35fce437b80a83
 ~
 Napp/src/main/java/com/alejandro8a/androidTemplate/database/dao/CharacterDao.kt,1/f/1fc81f630eb62bc88d2f9bb21a5b8e2fdad27f89
-‡
-Wapp/src/main/java/com/alejandro8a/androidTemplate/domain/usecase/GetCharacterUseCase.kt,f/8/f865c2b5664c72bad7efc3badb1a217242f4e3ee
+’
+bapp/src/main/java/com/alejandro8a/androidTemplate/domain/usecase/character/SaveCharacterUseCase.kt,b/a/baeff542682f233a960f84e18afd64a594baa731
+ƒ
+Sapp/src/main/java/com/alejandro8a/androidTemplate/data/repository/CharacterCache.kt,a/0/a0c48631952dadb3e980facef1ad49d7065045c7
+‘
+aapp/src/main/java/com/alejandro8a/androidTemplate/domain/usecase/character/GetCharacterUseCase.kt,8/d/8deeda6f434770f5bf7a026e941dc6d05b0e5e28
+ˆ
+Xapp/src/main/java/com/alejandro8a/androidTemplate/presentation/profile/ProfileAdapter.kt,0/d/0d90d3d5d67fc9874558a05a870c82a26ffe7b02
+•
+eapp/src/main/java/com/alejandro8a/androidTemplate/domain/usecase/character/GetAllCharactersUseCase.kt,8/4/841be8c53ecbf4f3a96380f7a3068a784ebfe8bd

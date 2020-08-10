@@ -1,13 +1,13 @@
 package com.alejandro8a.androidTemplate.di
 
-import com.alejandro8a.androidTemplate.presentation.profile.ProfileViewModel
+import com.alejandro8a.androidTemplate.presentation.character.CharacterViewModel
 import org.koin.dsl.module
 import org.koin.android.viewmodel.dsl.viewModel
 
 val ViewModelModule = module {
 
     viewModel {
-        ProfileViewModel(
+        CharacterViewModel(
             createGetCharacterUseCase(
                 createCharacterRepository(get(), get()),
                 createApiErrorHandle()

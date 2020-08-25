@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.alejandro8a.androidTemplate.database.CHARACTER_TABLE_NAME
 import com.alejandro8a.androidTemplate.database.model.CharacterEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CharacterDao {
@@ -14,6 +15,6 @@ interface CharacterDao {
     suspend fun saveCharacter(character: CharacterEntity)
 
     @Query("SELECT * FROM $CHARACTER_TABLE_NAME")
-    suspend fun getAllCharacters(): List<CharacterEntity>
+    fun getAllCharacters(): Flow<List<CharacterEntity>>
 
 }

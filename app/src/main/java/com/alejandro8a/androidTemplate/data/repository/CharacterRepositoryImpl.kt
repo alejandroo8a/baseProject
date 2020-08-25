@@ -5,6 +5,7 @@ import com.alejandro8a.androidTemplate.database.model.CharacterEntity
 import com.alejandro8a.androidTemplate.network.model.CharacterResponse
 import com.alejandro8a.androidTemplate.domain.repository.CharacterRepository
 import com.alejandro8a.androidTemplate.network.ApiService
+import kotlinx.coroutines.flow.Flow
 
 class CharacterRepositoryImpl(
     private val apiService: ApiService,
@@ -19,7 +20,7 @@ class CharacterRepositoryImpl(
         characterDao.saveCharacter(characterEntity)
     }
 
-    override suspend fun getAllCharacters(): List<CharacterEntity> {
+    override suspend fun getAllCharacters(): Flow<List<CharacterEntity>>{
         return characterDao.getAllCharacters()
     }
 

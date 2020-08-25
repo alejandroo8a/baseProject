@@ -13,6 +13,11 @@ import com.alejandro8a.androidTemplate.domain.usecase.character.SaveCharacterUse
 import com.alejandro8a.androidTemplate.extensions.asLiveData
 import com.alejandro8a.androidTemplate.network.ErrorModel
 import com.alejandro8a.androidTemplate.presentation.base.BaseViewModel
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapLatest
 
 class CharacterViewModel constructor(
     private val getCharacterUseCase: GetCharacterUseCase,
@@ -56,7 +61,7 @@ class CharacterViewModel constructor(
     fun saveCharacter() {
         saveCharacterUseCase.invoke(scope, characterCache.characterResponse.mapToRoomEntity(), object : UseCaseResponse<Unit> {
             override fun onSuccess(result: Unit) {
-                //No-opa
+                //No-op
             }
 
             override fun onError(errorModel: ErrorModel) {
@@ -65,6 +70,7 @@ class CharacterViewModel constructor(
         })
     }
 
+    @InternalCoroutinesApi
     fun getAllCharacters() {
         getAllCharactersUseCase.invoke(scope, null, object : UseCaseResponse<List<CharacterEntity>> {
             override fun onSuccess(result: List<CharacterEntity>) {

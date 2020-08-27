@@ -48,7 +48,3 @@ fun createMoshi(): Moshi {
 fun createService(retrofit: Retrofit): ApiService {
     return retrofit.create(ApiService::class.java)
 }
-
-fun createApiErrorHandle(): ApiErrorHandle {
-    return ApiErrorHandle()
-}

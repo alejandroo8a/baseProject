@@ -9,7 +9,7 @@ import org.koin.dsl.module
 
 val UseCaseModule = module {
 
-    single { createGetCharacterUseCase(createCharacterRepository(get(), get()), createApiErrorHandle()) }
+    single { createGetCharacterUseCase(createCharacterRepository(get(), get()), ApiErrorHandle) }
 
 }
 

@@ -10,5 +10,5 @@ interface CharacterRepository {
 
     suspend fun saveCharacter(characterEntity: CharacterEntity)
 
-    suspend fun getAllCharacters(): Flow<List<CharacterEntity>>
+    fun getAllCharacters(): Flow<List<CharacterEntity>>
 }

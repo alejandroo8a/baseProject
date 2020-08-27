@@ -22,7 +22,6 @@ class CharacterFragment : Fragment(R.layout.fragment_profile) {
 
     private val adapter = CharacterAdapter()
 
-    @InternalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -31,7 +30,6 @@ class CharacterFragment : Fragment(R.layout.fragment_profile) {
         addListeners()
         addObservers()
         viewModel.getCharacter()
-        viewModel.getAllCharacters()
     }
 
     private fun setupView() {
@@ -40,7 +38,6 @@ class CharacterFragment : Fragment(R.layout.fragment_profile) {
         binding.characterRecyclerView.adapter = adapter
     }
 
-    @InternalCoroutinesApi
     private fun addListeners() {
         binding.characterButton.setOnClickListener {
             viewModel.getCharacter()

@@ -1,6 +1,7 @@
 package com.alejandro8a.androidTemplate.presentation.character
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import com.alejandro8a.androidTemplate.data.repository.CharacterCache
 import com.alejandro8a.androidTemplate.data.repository.CharacterMapper
 import com.alejandro8a.androidTemplate.database.model.CharacterEntity
@@ -44,8 +45,13 @@ class CharacterViewModel constructor(
     //val uiCharacter = _uiCharacter
     val uiCharacter = _uiCharacter.asLiveData()
 
-    private val _uiAllCharacters = MutableLiveData<List<CharacterProfile>>()
-    val uiAllCharacters = _uiAllCharacters.asLiveData()
+    private val _uiAllCharacters = characterRepository
+        .getAllCharacters()
+        .map {
+            characterMapper.toUiProfileList(it)
+        }
+        .asLiveData(scope.coroutineContext)
+    val uiAllCharacters = _uiAllCharacters
 
     private val _showProgressBar = MutableLiveData<Boolean>()
     val showProgressBar = _showProgressBar.asLiveData()
@@ -84,20 +90,6 @@ class CharacterViewModel constructor(
             override fun onError(errorModel: ErrorModel) {
                 _errorMessage.value = errorModel.message
             }
-        })
-    }
-
-    @InternalCoroutinesApi
-    fun getAllCharacters() {
-        getAllCharactersUseCase.invoke(scope, null, object : UseCaseResponse<Flow<List<CharacterEntity>>> {
-            override fun onSuccess(result: Flow<List<CharacterEntity>>) {
-                //_uiAllCharacters.postValue(characterMapper.toUiProfileList(result.first()))
-            }
-
-            override fun onError(errorModel: ErrorModel) {
-                _errorMessage.value = errorModel.message
-            }
-
         })
     }
 }

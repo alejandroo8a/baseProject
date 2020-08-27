@@ -1,5 +1,6 @@
 package com.alejandro8a.androidTemplate.di
 
+import com.alejandro8a.androidTemplate.network.ApiErrorHandle
 import com.alejandro8a.androidTemplate.presentation.character.CharacterViewModel
 import org.koin.dsl.module
 import org.koin.android.viewmodel.dsl.viewModel
@@ -11,11 +12,11 @@ val ViewModelModule = module {
             createCharacterRepository(get(), get()),
             createSaveCharacterUseCase(
                 createCharacterRepository(get(), get()),
-                createApiErrorHandle()
+                ApiErrorHandle
             ),
             createGetAllCharactersUseCase(
                 createCharacterRepository(get(), get()),
-                createApiErrorHandle()
+                ApiErrorHandle
             ),
             createCharacterMapper(),
             createCharacterCache()

@@ -25,7 +25,7 @@ class CharacterRepositoryImpl(
         characterDao.saveCharacter(characterEntity)
     }
 
-    override suspend fun getAllCharacters(): Flow<List<CharacterEntity>>{
+    override fun getAllCharacters(): Flow<List<CharacterEntity>>{
         return characterDao.getAllCharacters()
     }
 

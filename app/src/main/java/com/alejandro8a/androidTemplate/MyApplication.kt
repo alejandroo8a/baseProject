@@ -24,7 +24,6 @@ class MyApplication : Application(){
                     DatabaseModule,
                     NetworkModule,
                     RepositoryModule,
-                    UseCaseModule,
                     ViewModelModule
                 )
             )

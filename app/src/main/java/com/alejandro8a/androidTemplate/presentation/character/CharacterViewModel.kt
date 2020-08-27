@@ -4,45 +4,23 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import com.alejandro8a.androidTemplate.data.repository.CharacterCache
 import com.alejandro8a.androidTemplate.data.repository.CharacterMapper
-import com.alejandro8a.androidTemplate.database.model.CharacterEntity
 import com.alejandro8a.androidTemplate.domain.repository.CharacterRepository
-import com.alejandro8a.androidTemplate.domain.usecase.base.UseCaseResponse
-import com.alejandro8a.androidTemplate.domain.usecase.character.GetAllCharactersUseCase
-import com.alejandro8a.androidTemplate.domain.usecase.character.SaveCharacterUseCase
 import com.alejandro8a.androidTemplate.extensions.asLiveData
 import com.alejandro8a.androidTemplate.network.ApiErrorHandle
-import com.alejandro8a.androidTemplate.network.ErrorModel
 import com.alejandro8a.androidTemplate.presentation.base.BaseViewModel
-import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class CharacterViewModel constructor(
     private val characterRepository: CharacterRepository,
-    private val saveCharacterUseCase: SaveCharacterUseCase,
-    private val getAllCharactersUseCase: GetAllCharactersUseCase,
     private val characterMapper: CharacterMapper,
     private val characterCache: CharacterCache
 ) : BaseViewModel() {
 
-    private val TAG = CharacterViewModel::class.java.name
-
     private val _uiCharacter = MutableLiveData<CharacterProfile>()
-    //This is for one shot
-//    private val _uiCharacter = characterRepository
-//        .getCharacter()
-//        .onStart {
-//            _showProgressBar.value = true
-//        }
-//        .map {
-//            characterMapper.toUiProfile(it[0])
-//        }
-//        .catch {
-//            _showProgressBar.value = false
-//            //_errorMessage.value = errorModel.message
-//        }
-//        .asLiveData(scope.coroutineContext)
-    //val uiCharacter = _uiCharacter
     val uiCharacter = _uiCharacter.asLiveData()
 
     private val _uiAllCharacters = characterRepository
@@ -68,6 +46,7 @@ class CharacterViewModel constructor(
                     _showProgressBar.value = true
                 }
                 .map {
+                    characterCache.characterResponse = it[0]
                     characterMapper.toUiProfile(it[0])
                 }
                 .catch {
@@ -82,14 +61,9 @@ class CharacterViewModel constructor(
     }
 
     fun saveCharacter() {
-        saveCharacterUseCase.invoke(scope, characterCache.characterResponse.mapToRoomEntity(), object : UseCaseResponse<Unit> {
-            override fun onSuccess(result: Unit) {
-                //No-op
-            }
-
-            override fun onError(errorModel: ErrorModel) {
-                _errorMessage.value = errorModel.message
-            }
-        })
+        scope.launch {
+            characterRepository
+                .saveCharacter(characterCache.characterResponse.mapToRoomEntity())
+        }
     }
 }

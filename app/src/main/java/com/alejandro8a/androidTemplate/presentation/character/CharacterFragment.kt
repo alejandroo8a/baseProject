@@ -10,6 +10,8 @@ import com.alejandro8a.androidTemplate.R
 import com.alejandro8a.androidTemplate.databinding.FragmentProfileBinding
 import com.alejandro8a.androidTemplate.extensions.snackbar
 import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.withContext
+import org.koin.android.scope.lifecycleScope
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class CharacterFragment : Fragment(R.layout.fragment_profile) {
@@ -45,7 +47,6 @@ class CharacterFragment : Fragment(R.layout.fragment_profile) {
         }
         binding.saveButton.setOnClickListener {
             viewModel.saveCharacter()
-            //viewModel.getAllCharacters()
         }
     }
 

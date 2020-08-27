@@ -13,7 +13,7 @@ abstract class UseCase<Type, in Params>(private val apiErrorHandle: ApiErrorHand
     fun invoke(
         scope: CoroutineScope,
         params: Params?,
-        onResult: (UseCaseResponse<Type>)
+        onResult: UseCaseResponse<Type>
     ) {
         val backgroundJob = scope.async {
             run(params)

@@ -1,26 +1,23 @@
 package com.alejandro8a.androidTemplate.presentation.character
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.alejandro8a.androidTemplate.data.repository.CharacterCache
-import com.alejandro8a.androidTemplate.network.model.CharacterResponse
 import com.alejandro8a.androidTemplate.data.repository.CharacterMapper
 import com.alejandro8a.androidTemplate.database.model.CharacterEntity
-import com.alejandro8a.androidTemplate.domain.usecase.character.GetCharacterUseCase
+import com.alejandro8a.androidTemplate.domain.repository.CharacterRepository
 import com.alejandro8a.androidTemplate.domain.usecase.base.UseCaseResponse
 import com.alejandro8a.androidTemplate.domain.usecase.character.GetAllCharactersUseCase
 import com.alejandro8a.androidTemplate.domain.usecase.character.SaveCharacterUseCase
 import com.alejandro8a.androidTemplate.extensions.asLiveData
+import com.alejandro8a.androidTemplate.network.ApiErrorHandle
 import com.alejandro8a.androidTemplate.network.ErrorModel
 import com.alejandro8a.androidTemplate.presentation.base.BaseViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.conflate
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 class CharacterViewModel constructor(
-    private val getCharacterUseCase: GetCharacterUseCase,
+    private val characterRepository: CharacterRepository,
     private val saveCharacterUseCase: SaveCharacterUseCase,
     private val getAllCharactersUseCase: GetAllCharactersUseCase,
     private val characterMapper: CharacterMapper,
@@ -30,6 +27,21 @@ class CharacterViewModel constructor(
     private val TAG = CharacterViewModel::class.java.name
 
     private val _uiCharacter = MutableLiveData<CharacterProfile>()
+    //This is for one shot
+//    private val _uiCharacter = characterRepository
+//        .getCharacter()
+//        .onStart {
+//            _showProgressBar.value = true
+//        }
+//        .map {
+//            characterMapper.toUiProfile(it[0])
+//        }
+//        .catch {
+//            _showProgressBar.value = false
+//            //_errorMessage.value = errorModel.message
+//        }
+//        .asLiveData(scope.coroutineContext)
+    //val uiCharacter = _uiCharacter
     val uiCharacter = _uiCharacter.asLiveData()
 
     private val _uiAllCharacters = MutableLiveData<List<CharacterProfile>>()
@@ -43,19 +55,24 @@ class CharacterViewModel constructor(
 
     fun getCharacter() {
         _showProgressBar.value = true
-        getCharacterUseCase.invoke(scope, null, object : UseCaseResponse<List<CharacterResponse>> {
-            override fun onSuccess(result: List<CharacterResponse>) {
-                _showProgressBar.value = false
-                characterCache.characterResponse = result[0]
-                _uiCharacter.postValue(characterMapper.toUiProfile(result[0]))
-            }
-
-            override fun onError(errorModel: ErrorModel) {
-                Log.e(TAG, errorModel.getErrorMessage())
-                _showProgressBar.value = false
-                _errorMessage.value = errorModel.message
-            }
-        })
+        scope.launch {
+            characterRepository
+                .getCharacter()
+                .onStart {
+                    _showProgressBar.value = true
+                }
+                .map {
+                    characterMapper.toUiProfile(it[0])
+                }
+                .catch {
+                    _showProgressBar.value = false
+                    _errorMessage.value = ApiErrorHandle.traceErrorException(it).getErrorMessage()
+                }
+                .collect {
+                    _showProgressBar.value = false
+                    _uiCharacter.postValue(it)
+                }
+        }
     }
 
     fun saveCharacter() {
@@ -72,9 +89,9 @@ class CharacterViewModel constructor(
 
     @InternalCoroutinesApi
     fun getAllCharacters() {
-        getAllCharactersUseCase.invoke(scope, null, object : UseCaseResponse<List<CharacterEntity>> {
-            override fun onSuccess(result: List<CharacterEntity>) {
-                _uiAllCharacters.postValue(characterMapper.toUiProfileList(result))
+        getAllCharactersUseCase.invoke(scope, null, object : UseCaseResponse<Flow<List<CharacterEntity>>> {
+            override fun onSuccess(result: Flow<List<CharacterEntity>>) {
+                //_uiAllCharacters.postValue(characterMapper.toUiProfileList(result.first()))
             }
 
             override fun onError(errorModel: ErrorModel) {

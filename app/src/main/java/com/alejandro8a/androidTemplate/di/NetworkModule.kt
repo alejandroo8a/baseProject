@@ -38,7 +38,6 @@ fun createRetrofit(okHttpClient: OkHttpClient, url: String, moshi: Moshi): Retro
     return Retrofit.Builder()
         .baseUrl(url)
         .client(okHttpClient)
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(MoshiConverterFactory.create(moshi)).build()
 }
 

@@ -10,7 +10,7 @@ import java.net.SocketTimeoutException
  * depending on what exception returns a [ErrorModel]
  *
  * */
-class ApiErrorHandle {
+object ApiErrorHandle {
 
     fun traceErrorException(throwable: Throwable?): ErrorModel {
         val errorModel: ErrorModel? = when (throwable) {

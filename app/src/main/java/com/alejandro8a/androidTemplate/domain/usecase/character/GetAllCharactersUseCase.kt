@@ -11,12 +11,11 @@ import kotlinx.coroutines.flow.*
 class GetAllCharactersUseCase constructor(
     private val characterRepository: CharacterRepository,
     apiErrorHandle: ApiErrorHandle
-): UseCase<List<CharacterEntity>, Any?>(apiErrorHandle){
+): UseCase<Flow<List<CharacterEntity>>, Any?>(apiErrorHandle){
 
-    override suspend fun run(params: Any?): List<CharacterEntity> {
+    override suspend fun run(params: Any?): Flow<List<CharacterEntity>> {
         return characterRepository.getAllCharacters()
             .flowOn(Dispatchers.Default)
-            .first()
 }
 
 }

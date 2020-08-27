@@ -23,13 +23,12 @@ class CharacterViewModel constructor(
     private val _uiCharacter = MutableLiveData<CharacterProfile>()
     val uiCharacter = _uiCharacter.asLiveData()
 
-    private val _uiAllCharacters = characterRepository
+    val uiAllCharacters = characterRepository
         .getAllCharacters()
         .map {
             characterMapper.toUiProfileList(it)
         }
         .asLiveData(scope.coroutineContext)
-    val uiAllCharacters = _uiAllCharacters
 
     private val _showProgressBar = MutableLiveData<Boolean>()
     val showProgressBar = _showProgressBar.asLiveData()
@@ -61,9 +60,13 @@ class CharacterViewModel constructor(
     }
 
     fun saveCharacter() {
-        scope.launch {
-            characterRepository
-                .saveCharacter(characterCache.characterResponse.mapToRoomEntity())
+        characterCache.characterResponse?.mapToRoomEntity()?.let { characterEntity ->
+            scope.launch {
+                characterRepository
+                    .saveCharacter(characterEntity)
+            }
+        } ?: kotlin.run {
+            _errorMessage.value = "There is not character for save"
         }
     }
 }

@@ -4,6 +4,6 @@ import com.alejandro8a.androidTemplate.network.model.CharacterResponse
 
 class CharacterCache {
 
-    lateinit var characterResponse: CharacterResponse
+    var characterResponse: CharacterResponse? = null
 
 }
